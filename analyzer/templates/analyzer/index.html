@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <title>Sentiment Analyzer</title>
+   </head>
+   <body>
+       <h1>Movie Review Sentiment Analyzer</h1>
+       <form id="reviewForm">
+           <textarea id="review" placeholder="Enter your review here..." required></textarea
+>
+           <button type="submit">Analyze</button>
+       </form>
+       <h3 id="result"></h3>
+
+       <script>
+           document.getElementById('reviewForm').onsubmit = async (e) => {
+               e.preventDefault();
+               const text = document.getElementById('review').value;
+               const response = await fetch('', {
+                   method: 'POST',
+                   headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                   body: `text=${encodeURIComponent(text)}`
+               });
+               const data = await response.json();
+               document.getElementById('result').innerText = response.ok ? `Status: ${data.status}, Rating: ${data.rating}` : 'Error: ' + data.error;
+           };
+       </script>
+   </body>
+   </html>
